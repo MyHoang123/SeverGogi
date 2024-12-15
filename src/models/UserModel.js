@@ -154,20 +154,7 @@ const AddAccEmail = async (UserName, Email, Gender,Avt,result) => {
         result (null,null)
     })
 }
-const AddHistoryUser = async (User, IdProduct,result) => {
-    await db.query('CALL AddProduct(?,?)',[User,IdProduct],function(err,res){
-        if(err) {
-            result (err)
-            return
-        }
-        if(res) {
-            result (res)
-            return
-        }
-        result (null,null)
-    })
 
-}
 const updateAccount = async (UserName,Sdt,Email,Gender,BirthDay,IdAcc,result) => {
     await db.query('UPDATE account SET UserName = ?, Sdt = ?, Email = ?, Gender = ?,BirthDay = ? WHERE Id = ?',[UserName,Sdt,Email,Gender,BirthDay,IdAcc],function(err,res){
         if(err) {
@@ -213,7 +200,6 @@ const updateAvt = async (Avt,Id, result) => {
 //     await db.query('INSERT INTO account (Acc, Pass)  VALUE(?,?)',[Acc,Pass])
 // }
 module.exports = {
-    AddHistoryUser,
     get_all,
     login,
     register,

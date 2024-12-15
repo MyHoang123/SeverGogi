@@ -187,16 +187,7 @@ exports.showListUser = function (req, res) {
          })
     })
 }
-exports.AddHistoryUser = function (req, res) {
-    const {IdProduct} = req.body
-    const IdAcc = req.Id
-    Account.AddHistoryUser(IdAcc,IdProduct,function(data) {
-        console.log(data)
-        return res.status(200).json({
-            massege: 'thanh cong',
-         })
-    })
-}
+
 exports.updatePassRegister = function (req, res) {
     const { Pass, Gender } = req.body
     const Phone = req.phone
