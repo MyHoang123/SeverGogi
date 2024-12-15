@@ -9,11 +9,12 @@ var conn = mysql.createConnection({
     database: `${process.env.database}`
 })
 
-conn.connect(function(err, conn) {
-    if(err) {
-        console.log("fail")}
-        else {
-            console.log("seccess")
-        }
-})
+conn.connect((err) => {
+    if (err) {
+        console.error('Error connecting to the database:', err);
+        return;
+    }
+    console.log('Connected to the database.');
+});
+
 module.exports = conn
