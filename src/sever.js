@@ -12,7 +12,7 @@ app.use(express.urlencoded())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')));
 // connect database
-// db.conn;
+db.conn;
 // // apiRoutes
 apiroute(app)
 // Websocket
