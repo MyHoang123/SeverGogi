@@ -1,0 +1,39 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "backend Nodejs",
+  "main": "./src/sever.js",
+  "scripts": {
+    "start": "nodemon ./src/sever.js",
+    "startAuthSever": "nodemon ./src/authSever.js",
+    "startOrder": "nodemon ./src/OrderSever.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "express-session": "^1.17.3",
+    "handlebars": "^4.7.8",
+    "handlebars-helpers": "^0.10.0",
+    "jsonwebtoken": "^9.0.2",
+    "moment": "^2.30.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.6.1",
+    "nodemon": "^3.0.1",
+    "qs": "^6.13.0",
+    "sass": "^1.68.0",
+    "socket.io": "^4.7.5",
+    "twilio": "^5.3.4"
+  },
+  "devDependencies": {
+    "node-sass": "^9.0.0"
+  }
+}
