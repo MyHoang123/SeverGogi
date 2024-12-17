@@ -74,7 +74,7 @@ const updateUser = async (Acc,Pass,Access,idAcc) => {
     await db.query('UPDATE account SET Acc = ?,Pass = ?,Access = ? WHERE idAcc = ?',[Acc,Pass,Access,idAcc])
 } 
 const login = async (Acc,Pass,result) => {
-    await db.query(`SELECT Id, Name, UserName, Sdt, Email, Avt, Gender, Birthday, Classify FROM account WHERE Name=? AND Pass=? AND Classify =?`,[`0${Acc}`,Pass,'user'], function(err, res){
+    await db.query(`SELECT Id, Name, UserName, Sdt, Email, Avt, Gender, Birthday, Classify FROM account WHERE Name=? AND Pass=? AND Classify = ?`,[`0${Acc}`,Pass,'user'], function(err, res){
         if(err) {
             result (null)
             return

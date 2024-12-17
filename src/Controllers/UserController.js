@@ -129,9 +129,11 @@ exports.verifyOTPRegister = (req, res) => {
 }
 exports.login = async (req, res) => {
     const { Pass } = req.body;
+    console.log('Star')
     const Phone = req.Phone
     if (Phone && Pass) { 
         await Account.login(Phone,Pass,(user)=>{
+            console.log(user)
             let name = ''
             if(user) {
                     if(!user.UserName) {
