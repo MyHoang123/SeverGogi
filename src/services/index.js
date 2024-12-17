@@ -7,7 +7,7 @@ const clients = [];
     // web SOCKet
 const io = require('socket.io')(server, {
     cors: {
-      origin: [process.env.IP_CLIENT, 'http://localhost:3000'],
+      origin: [process.env.IP_CLIENT, 'https://c346-2402-800-6343-85f1-804f-e482-d0f0-9f2d.ngrok-free.app'],
       methods: ['GET', 'POST'],
     },
   });

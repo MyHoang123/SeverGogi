@@ -162,7 +162,7 @@ const apiRoute = (app) => {
   router.post('/apites1',OrderStatus)
   return ( 
       app.use(cors({
-          origin: [process.env.IP_CLIENT, 'http://localhost:3000']
+          origin: [process.env.IP_CLIENT, 'https://c346-2402-800-6343-85f1-804f-e482-d0f0-9f2d.ngrok-free.app']
         })),
       app.use('/api/v12/',router)
     );
