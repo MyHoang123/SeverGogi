@@ -132,8 +132,7 @@ exports.login = async (req, res) => {
     console.log('Star')
     const Phone = req.Phone
     if (Phone && Pass) { 
-    console.log(Phone)
-        Account.login(Phone,Pass,(user)=>{
+        Account.login(Phone,Pass,function(user){
             let name = ''
             if(user) {
                     if(!user.UserName) {
