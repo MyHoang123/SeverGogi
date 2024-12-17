@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 require("dotenv").config()
 const Account = require('../models/UserModel')
-const Card = require('../models/CardModal')
 // Account
 exports.sendOTP = (req, res) => {
     const Phone = req.Phone
@@ -129,7 +128,6 @@ exports.verifyOTPRegister = (req, res) => {
 }
 exports.login = async (req, res) => {
     const { Pass } = req.body;
-    console.log('Star')
     const Phone = req.Phone
     if (Phone && Pass) { 
         Account.login(Phone,Pass,function(user){

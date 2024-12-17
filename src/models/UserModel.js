@@ -73,9 +73,8 @@ const getUserIdAcc = function (id, callback)  {
 const updateUser = async (Acc,Pass,Access,idAcc) => {
     await db.query('UPDATE account SET Acc = ?,Pass = ?,Access = ? WHERE idAcc = ?',[Acc,Pass,Access,idAcc])
 } 
-const login = async (Acc,Pass,result) => {
-    console.log("🚀 ~ login ~ Acc:", Acc,Pass)
-    await db.query(`SELECT Id, Name, UserName, Sdt, Email, Avt, Gender, Birthday, Classify FROM account WHERE Name=? AND Pass=? AND Classify = ?`,[`0${Acc}`,Pass,'user'], function(err, res){
+const login = (Acc,Pass,result) => {
+     db.query(`SELECT Id, Name, UserName, Sdt, Email, Avt, Gender, Birthday, Classify FROM account WHERE Name=? AND Pass=? AND Classify = ?`,[`0${Acc}`,Pass,'user'], function(err, res){
         if(err) {
             result (null)
             return
