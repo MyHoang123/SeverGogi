@@ -20,8 +20,8 @@ const getCommentUser = function (IdBill,callback)  {
        }
     })
 } 
-const createComment = async (Containt, Star, IdProduct, IdAcc, IdBill, result) => {
-    await db.query('INSERT INTO comment (Containt, Star, IdProduct, IdAcc,IdBill )  VALUE(?,?,?,?,?)',[Containt, Star, IdProduct, IdAcc,IdBill] , function(err,data){
+const createComment = (Containt, Star, IdProduct, IdAcc, IdBill, result) => {
+     db.query('INSERT INTO comment (Containt, Star, IdProduct, IdAcc,IdBill )  VALUE(?,?,?,?,?)',[Containt, Star, IdProduct, IdAcc,IdBill] , function(err,data){
         if(err || data.length <= 0) {
             result (null)
         }
@@ -30,8 +30,8 @@ const createComment = async (Containt, Star, IdProduct, IdAcc, IdBill, result) =
         }
     })
 }
-const filterComment = async (IdProduct, Star, result) => {
-    await db.query('SELECT c.Id, c.Containt,c.Star,c.RepComment,a.UserName,a.Classify,a.Avt FROM comment c INNER JOIN account a ON c.IdAcc = a.Id WHERE c.IdProduct = ? AND c.Star = ? ORDER BY c.Id DESC',[IdProduct, Star] , function(err,data){
+const filterComment = (IdProduct, Star, result) => {
+     db.query('SELECT c.Id, c.Containt,c.Star,c.RepComment,a.UserName,a.Classify,a.Avt FROM comment c INNER JOIN account a ON c.IdAcc = a.Id WHERE c.IdProduct = ? AND c.Star = ? ORDER BY c.Id DESC',[IdProduct, Star] , function(err,data){
         if(err || data.length <= 0) {
             result (null)
         }
@@ -40,8 +40,8 @@ const filterComment = async (IdProduct, Star, result) => {
         }
     })
 }
-const createRepComment = async (RepComment,Id,result) => {
-    await db.query('UPDATE comment SET RepComment = ? WHERE Id = ?',[RepComment,Id] , function(err,data){
+const createRepComment = (RepComment,Id,result) => {
+     db.query('UPDATE comment SET RepComment = ? WHERE Id = ?',[RepComment,Id] , function(err,data){
         if(err || data.length <= 0) {
             result (null)
         }
@@ -50,8 +50,8 @@ const createRepComment = async (RepComment,Id,result) => {
         }
     })
 }
-const AutoRepComment = async (RepComment, IdProduct, IdAcc, IdBill,result) => {
-    await db.query('UPDATE comment SET RepComment = ? WHERE IdProduct = ? AND IdAcc = ? AND IdBill = ?',[RepComment,IdProduct,IdAcc,IdBill],function(err,data) {
+const AutoRepComment = (RepComment, IdProduct, IdAcc, IdBill,result) => {
+     db.query('UPDATE comment SET RepComment = ? WHERE IdProduct = ? AND IdAcc = ? AND IdBill = ?',[RepComment,IdProduct,IdAcc,IdBill],function(err,data) {
         if(err || data.length <= 0) {
             result (null)
         }
@@ -60,8 +60,8 @@ const AutoRepComment = async (RepComment, IdProduct, IdAcc, IdBill,result) => {
         }
     })
 }
-const updateBillComment = async (IdBill,result) => {
-    await db.query('UPDATE bill SET Status = ? WHERE Id = ? AND Status != ?',[4,IdBill,4],function(err,data) {
+const updateBillComment = (IdBill,result) => {
+     db.query('UPDATE bill SET Status = ? WHERE Id = ? AND Status != ?',[4,IdBill,4],function(err,data) {
         if(err || data.length <= 0) {
             result (null)
         }
@@ -70,8 +70,8 @@ const updateBillComment = async (IdBill,result) => {
         }
     })
 }
-const showCommentAdmin = async (result) => {
-    await db.query('SELECT p.Id, p.Name,p.Price,p.Img,p.Sales,c.Star FROM products p INNER JOIN comment c ON p.Id = c.IdProduct GROUP BY p.Id',function(err,data) {
+const showCommentAdmin = (result) => {
+     db.query('SELECT p.Id, p.Name,p.Price,p.Img,p.Sales,c.Star FROM products p INNER JOIN comment c ON p.Id = c.IdProduct GROUP BY p.Id',function(err,data) {
         if(err || data.length <= 0) {
             result (null)
         }
