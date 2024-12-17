@@ -132,8 +132,8 @@ exports.login = async (req, res) => {
     console.log('Star')
     const Phone = req.Phone
     if (Phone && Pass) { 
-        await Account.login(Phone,Pass,(user)=>{
-            console.log(user)
+    console.log(Phone)
+        Account.login(Phone,Pass,(user)=>{
             let name = ''
             if(user) {
                     if(!user.UserName) {
@@ -162,7 +162,7 @@ exports.login = async (req, res) => {
 exports.loginAdmin = async (req, res) => {
     const {Acc, Pass} = req.body;
     if (Acc && Pass) { 
-        await Account.loginAdmin(Acc,Pass,(err,user)=>{
+        Account.loginAdmin(Acc,Pass,(err,user)=>{
             if(user) {
                 const newUser = {
                     Id: user.Id
