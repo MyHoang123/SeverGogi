@@ -20,7 +20,7 @@ const CountTotalPrice = (result) => {
     })
 }
 const getBill = function (IdAcc, callback)  {
-    db.query(`SELECT p.Id, b.Id, b.IdAcc, b.TotalPrice, b.Status,b.StatusPay, SUBSTRING(b.DATETIME, 1, 10) AS DateOnly, CONCAT('[', GROUP_CONCAT(CONCAT('{"Name":"', p.Name, '", "Id":', p.Id, ', "Price":', p.Price, ', "Img":"', p.Img, '", "NameCate":"', ct.Name, '", "sl":', (d.Price DIV p.Price), IF(d.Note IS NOT NULL, CONCAT(', "Note":"', d.Note, '"'), ''), '}') SEPARATOR ', '),']') AS Data  FROM bill b INNER JOIN detailbill d ON b.Id = d.IdBill INNER JOIN products p ON p.Id = d.IdProduct INNER JOIN categoris ct ON ct.Id = p.IdCategoris WHERE b.IdAcc = ? GROUP BY b.Id ORDER BY b.Id DESC;`,[IdAcc], function(err,data) {
+    db.query(`SELECT p.Id, b.Id, b.IdAcc, b.TotalPrice, b.Status,b.StatusPay, SUBSTRING(b.DATETIME, 1, 10) AS DateOnly, CONCAT('[', GROUP_CONCAT(CONCAT('{"Name":"', p.Name, '", "Id":', p.Id, ', "Price":', p.Price, ', "Img":"', p.Img, '", "NameCate":"', ct.Name, '", "sl":', (d.Price DIV p.Price), IF(d.Note IS NOT NULL, CONCAT(', "Note":"', d.Note, '"'), ''), '}') SEPARATOR ', '),']') AS Data  FROM bill b INNER JOIN detailbill d ON b.Id = d.IdBill INNER JOIN products p ON p.Id = d.IdProduct INNER JOIN categoris ct ON ct.Id = p.IdCategoris WHERE b.IdAcc = ? GROUP BY b.Id, b.IdAcc, b.TotalPrice, b.Status, b.StatusPay, SUBSTRING(b.DATETIME, 1, 10) ORDER BY b.Id DESC;`,[IdAcc], function(err,data) {
        if(err || data.length <= 0) {
            callback (null)
        }
@@ -73,7 +73,7 @@ const showProductBill = function (IdProduct,callback)  {
     })
 } 
 const createBill = (IdAcc, Name, Sdt, TotalPrice, Address, Destination, Date, Note, IdPay, StatusPay, result) => {
-     db.query('INSERT INTO bill (IdAcc, Name, Sdt, TotalPrice, Address, Destination, Status, DATETIME, Note, PayMent,StatusPay)  VALUE(?,?,?,?,?,?,?,?,?,?,?)',[IdAcc,Name,Sdt,TotalPrice,Address,Destination,0,Date,Note,IdPay,StatusPay], function(err,data){
+     db.query('INSERT INTO bill (IdAcc, Name, Sdt, TotalPrice, PriceVoucher ,Address, Destination, Status, DATETIME, Note, PayMent,StatusPay)  VALUE(?,?,?,?,?,?,?,?,?,?,?,?)',[IdAcc,Name,Sdt,TotalPrice,0,Address,Destination,0,Date,Note,IdPay,StatusPay], function(err,data){
         if(err || data.length <= 0) {
             result (null)
         }

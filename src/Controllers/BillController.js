@@ -105,7 +105,9 @@ exports.showProductBill = async (req, res) => {
     }
 exports.showBill = async (req, res) => {
     const  IdAcc  = req.Id;
-    Bill.getBill(IdAcc,async function(data) {
+    Bill.getBill(IdAcc,function(data) {
+        console.log("🚀 ~ Bill.getBill ~ data:", data)
+        console.log("🚀 ~ Bill.getBill ~ IdAcc:", IdAcc)
         if(data === null) {
             return res.status(200).json({
                 massege: 'Không tìm thấy đơn hàng',
@@ -119,7 +121,7 @@ exports.showBill = async (req, res) => {
         }
     })
 }
-exports.getProductHottrend = async (req, res) => {
+exports.getProductHottrend = (req, res) => {
     Bill.getProductHottrend(function(data) {
         if(data === null) {
             return res.status(200).json({
@@ -134,7 +136,7 @@ exports.getProductHottrend = async (req, res) => {
         }
     })
 }
-exports.AllBIll = async (req, res) => {
+exports.AllBIll = (req, res) => {
     let AllBill = 0
     let AllBillOrder = 0
     let PriceBill = 0

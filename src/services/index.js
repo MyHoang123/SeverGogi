@@ -7,7 +7,7 @@ const clients = [];
     // web SOCKet
 const io = require('socket.io')(server, {
     cors: {
-      origin: [process.env.IP_CLIENT, 'https://gogiktpm0120.netlify.app/'],
+      origin: [process.env.IP_CLIENT, 'http://localhost:3000'],
       methods: ['GET', 'POST'],
     },
   });

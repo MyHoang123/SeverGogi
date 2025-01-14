@@ -96,7 +96,7 @@ const apiRoute = (app) => {
   router.post('/createbillorder',checkTokenOrder,OrderController.createBillOrder)
   router.post('/showbillorderuser',OrderController.showBillOrderUser) 
   // Bill
-  router.post('/createbill',checkInfoBill,checkToken,checkOpen,PayMethod,BillController.createBill)
+  router.post('/createbill',checkInfoBill,checkToken,PayMethod,BillController.createBill)
   router.post('/checkstatus',checkToken,checkStatus)
   router.post('/onOpen',checkToken,OnOpen)
   router.post('/shownotifi',checkToken,NotifiController.ShowNotifi)
@@ -162,7 +162,7 @@ const apiRoute = (app) => {
   router.post('/apites1',OrderStatus)
   return ( 
       app.use(cors({
-          origin: [process.env.IP_CLIENT, 'https://gogiktpm0120.netlify.app']
+          origin: [process.env.IP_CLIENT, 'http://localhost:3000']
         })),
       app.use('/api/v12/',router)
     );
