@@ -70,8 +70,7 @@ const getAllProductCate = function (IdCate,callback) {
     })
 }
 const getBestsellerCate = function (callback) {
-    db.query(`SELECT p.Name,p.Img,p.Dsription,p.Price,p.Sales,MAX(cm.Star) AS Star FROM railway.products p INNER JOIN (SELECT IdCategoris, Id, Sales FROM railway.products WHERE IdCategoris != 9 ORDER BY Sales DESC LIMIT 6) AS ranked_products  ON p.Id = ranked_products.Id INNER JOIN railway.categoris c ON c.Id = p.IdCategoris LEFT JOIN railway.comment cm ON p.Id = cm.IdProduct GROUP BY p.Name, p.Img, p.Dsription, p.Price, p.Sales, c.Id 
-` , function(err, data) {
+    db.query(`SELECT p.Id, p.Name,p.Img,p.Dsription, p.Price,p.Sales,cm.Star FROM products p INNER JOIN (SELECT IdCategoris, Id, Sales FROM products WHERE IdCategoris != 9 ORDER BY Sales DESC LIMIT 6) AS ranked_products  ON p.Id = ranked_products.Id INNER JOIN categoris c ON c.Id = p.IdCategoris LEFT JOIN comment cm ON p.Id = cm.IdProduct GROUP BY c.Id;` , function(err, data) {
         if(err) {
             callback (null)
         }
@@ -131,7 +130,17 @@ const getAllMenu = function (callback) {
     })
 }
 const getAllTypes = function (callback) {
-    db.query("SELECT * FROM types", function(err, data) {
+    db.query("SELECT Id, Name, IdMenu, Price FROM types", function(err, data) {
+        if(err) {
+            callback (null)
+        }
+        else {
+            callback (data)
+        }
+    })
+}
+const getCategoriType = function (callback) {
+    db.query("SELECT t.Id AS IdType, c.Id AS IdCate, t.Name AS NameType, c.Name AS NameCate FROM types t INNER JOIN detailtypes d ON t.Id = d.IdType LEFT JOIN categoris c ON d.IdCategoris = c.Id", function(err, data) {
         if(err) {
             callback (null)
         }
@@ -181,7 +190,7 @@ const filterCateType = function (IdCate,IdType,callback) {
     })
 }
 const getAllCategories = function (callback)  {
-    db.query("SELECT * FROM categoris ", function(err , data) {
+    db.query("SELECT Id, Name FROM categoris ", function(err , data) {
        if(err) {
            callback (null)
        }
@@ -412,4 +421,5 @@ module.exports = {
     getBestsellerCate,
     updateVisibleProduct,
     getAllProductAdmin,
+    getCategoriType,
 }

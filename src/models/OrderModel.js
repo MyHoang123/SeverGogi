@@ -1,6 +1,6 @@
 const db = require('../configs/connect')
-const updateTable = (Status,Id,result) => {
-     db.query('UPDATE tables SET Status = ? WHERE Id = ?',[Status,Id],function(err,data){
+const updateTable = async (Status,Id,result) => {
+    await db.query('UPDATE tables SET Status = ? WHERE Id = ?',[Status,Id],function(err,data){
         if(err || data.length <= 0) {
             result (null)
         }
@@ -9,8 +9,8 @@ const updateTable = (Status,Id,result) => {
         }
     })
 } 
-const updateTableStatus = (Id,result) => {
-     db.query('UPDATE tables SET Status = ? WHERE Id = ?',['Bàn Trống',Id],function(err,data){
+const updateTableStatus = async (Id,result) => {
+    await db.query('UPDATE tables SET Status = ? WHERE Id = ?',['Bàn Trống',Id],function(err,data){
         if(err || data.length <= 0) {
             result (null)
         }
@@ -19,8 +19,8 @@ const updateTableStatus = (Id,result) => {
         }
     })
 }
-const updateBillStatus = (Price,Id,result) => {
-     db.query('UPDATE billorder SET Status = ?, Price = ? WHERE IdTable= ? AND Status = 0',[1,Price,Id],function(err,data){
+const updateBillStatus = async (Price,Id,result) => {
+    await db.query('UPDATE billorder SET Status = ?, Price = ? WHERE IdTable= ? AND Status = 0',[1,Price,Id],function(err,data){
         if(err || data.length <= 0) {
             result (null)
         }
@@ -29,11 +29,11 @@ const updateBillStatus = (Price,Id,result) => {
         }
     })
 }
-const updateBillOrder = (Id) => {
-     db.query('UPDATE billorder SET Status = ? WHERE IdTable = ? AND Status = ?',['Đã Thanh Toán',Id,'Đang Hoạt Động'])
+const updateBillOrder = async (Id) => {
+    await db.query('UPDATE billorder SET Status = ? WHERE IdTable = ? AND Status = ?',['Đã Thanh Toán',Id,'Đang Hoạt Động'])
 }
-const updateProductOrder = (Status,Id,result) => {
-     db.query('UPDATE detailbillorder SET Status = ? WHERE Id = ?',[Status,Id],function(err,data){
+const updateProductOrder = async (Status,Id,result) => {
+    await db.query('UPDATE detailbillorder SET Status = ? WHERE Id = ?',[Status,Id],function(err,data){
         if(err || data.length <= 0) {
             result (null)
         }
@@ -42,11 +42,11 @@ const updateProductOrder = (Status,Id,result) => {
         }
     })
 }
-const updateDataCard = (Data,Table) => {
-     db.query('UPDATE billorder SET Data = ? WHERE IdTable = ? AND Status = ?',[Data,Table,'Đang Hoạt Động'])
+const updateDataCard = async (Data,Table) => {
+    await db.query('UPDATE billorder SET Data = ? WHERE IdTable = ? AND Status = ?',[Data,Table,'Đang Hoạt Động'])
 }
-const createTable = (Name, result) => {
-     db.query('INSERT INTO tables (Name,Status)  VALUE(?,?)',[Name,'Bàn Trống'], function(err,data){
+const createTable = async (Name, result) => {
+    await db.query('INSERT INTO tables (Name,Status)  VALUE(?,?)',[Name,'Bàn Trống'], function(err,data){
         if(err || data.length <= 0) {
             result (null)
         }
@@ -55,8 +55,8 @@ const createTable = (Name, result) => {
         }
     })
 }
-const deleteTable = (Id, result) => {
-     db.query('DELETE FROM  tables WHERE Id = ?',[Id], function(err,data){
+const deleteTable = async (Id, result) => {
+    await db.query('DELETE FROM  tables WHERE Id = ?',[Id], function(err,data){
         if(err || data.length <= 0) {
             result (null)
         }
@@ -65,8 +65,8 @@ const deleteTable = (Id, result) => {
         }
     })
 }
-const createBillOrder = (TotalPrice,IdTable,IdType,Date, result) => {
-     db.query('INSERT INTO billorder (Price,IdTable, Status, Type, DATETIME)  VALUE(?,?,?,?,?)',[TotalPrice,IdTable,0,IdType,Date], function(err,data){
+const createBillOrder = async (TotalPrice,IdTable,IdType,Date, result) => {
+    await db.query('INSERT INTO billorder (Price,IdTable, Status, Type, DATETIME)  VALUE(?,?,?,?,?)',[TotalPrice,IdTable,0,IdType,Date], function(err,data){
         if(err || data.length <= 0) {
             result (null)
         }
@@ -75,8 +75,8 @@ const createBillOrder = (TotalPrice,IdTable,IdType,Date, result) => {
         }
     })
 }
-const createbillproductOrder = (values,result) => {
-     db.query(`INSERT INTO detailbillorder (IdBill, IdProduct, Quantity, Status, Note) VALUES ${values};`, function(err,data){
+const createbillproductOrder = async (values,result) => {
+    await db.query(`INSERT INTO detailbillorder (IdBill, IdProduct, Quantity, Status, Note) VALUES ${values};`, function(err,data){
         if(err || data.length <= 0) {
             result (null)
         }

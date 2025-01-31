@@ -1,6 +1,6 @@
 const Comment = require('../models/CommentModal')
 exports.showComment = (req, res) => {
-    const { IdProduct } = req.body;
+    const IdProduct  = req.query.IdProduct;
     Comment.getCommentProduct(IdProduct,function(data) {
         if(data === null) {
             return res.status(200).json({
@@ -32,7 +32,7 @@ exports.filterComment = async (req, res) => {
     })
 }
 exports.showCommentUser = async (req, res) => {
-    const { IdBill} = req.body
+    const IdBill = req.query.IdBill
     Comment.getCommentUser(IdBill, function(data) {
         if(data === null) {
             return res.status(200).json({

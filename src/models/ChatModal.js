@@ -1,8 +1,8 @@
 const db = require('../configs/connect')
 
 
-const CountChat = (IdSend, IdReceiver, result) => {
-     db.query('SELECT COUNT(Status) AS Count FROM chat WHERE Status = 0 AND IdSend = ? AND IdReceiver = ?',[IdSend, IdReceiver] , function(err,data){
+const CountChat = async (IdSend, IdReceiver, result) => {
+    await db.query('SELECT COUNT(Status) AS Count FROM chat WHERE Status = 0 AND IdSend = ? AND IdReceiver = ?',[IdSend, IdReceiver] , function(err,data){
         if(err || data.length <= 0) {
             result (null)
         }
@@ -11,8 +11,8 @@ const CountChat = (IdSend, IdReceiver, result) => {
         }
     })
 }
-const addChat = (IdSend, IdReceiver, time, containt, Date, result) => {
-     db.query('INSERT INTO chat ( IdSend , IdReceiver , time, containt, Date, Status  )  VALUE(?,?,?,?,?,?)',[IdSend, IdReceiver, time, containt, Date,0] , function(err,data){
+const addChat = async (IdSend, IdReceiver, time, containt, Date, result) => {
+    await db.query('INSERT INTO chat ( IdSend , IdReceiver , time, containt, Date, Status  )  VALUE(?,?,?,?,?,?)',[IdSend, IdReceiver, time, containt, Date,0] , function(err,data){
         if(err || data.length <= 0) {
             result (null)
         }

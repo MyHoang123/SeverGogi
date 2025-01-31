@@ -6,7 +6,7 @@ exports.checkTokenAdmin = (req, res, next) => {
     if(req.method === 'POST' || req.method === 'PUT') {
       token = req.body.token
     }
-    else if(req.method === 'GET') {
+    else if(req.method === 'GET' || req.method === 'DELETE') {
       token = req.query.token
     }
   // Lấy token từ tiêu đề Authorization

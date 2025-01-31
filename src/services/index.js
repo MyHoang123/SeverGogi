@@ -4,7 +4,6 @@ const { updateBill } = require('../Controllers/BillController')
 require('dotenv').config()
 const socket = (server) => {
 const clients = [];
-    // web SOCKet
 const io = require('socket.io')(server, {
     cors: {
       origin: [process.env.IP_CLIENT, 'http://localhost:3000'],
@@ -18,15 +17,11 @@ const io = require('socket.io')(server, {
       ClientId: socket.id
     }
     clients.push(IdClient)
-    // Lưu trữ thêm thông tin của client nếu cần
     console.log(socket.user.Id,'ConnectServer')
     console.log(clients)
-      // Xử lý các sự kiện từ client
       socket.on('createbill', (message) => {
-        // Gửi tin nhắn đến tất cả các client kết nối
         io.emit('repbill', message);
       });
-      // Xử lý các sự kiện từ client
       socket.on('ship', (user) => {
         for(let i = 0 ; i < clients.length; i++) {
           if(clients[i].Client === user) {
@@ -34,7 +29,6 @@ const io = require('socket.io')(server, {
           }
         }
       });
-      // Xử lý các sự kiện từ client
       socket.on('updatebill', (Id,IdAcc,Status,Data,callback) => {
         updateBill(Id,IdAcc,Status,Data, (data) => {
           if(data !== null) {
@@ -52,13 +46,7 @@ const io = require('socket.io')(server, {
             return new Error('Đã xảy ra lõi vui lòng load lại trang')
           }
         })
-        // for(let i = 0 ; i < clients.length; i++) {
-        //   if(clients[i].Client === user) {
-        //     io.to(clients[i].ClientId).emit('repship');
-        //   }
-        // }
       });
-      // Xử lý các sự kiện từ client
       socket.on('chat',(data,callback) => {
         for(let i = 0 ; i < clients.length; i++) {
           if(clients[i].ClientId === socket.id) {
@@ -81,7 +69,6 @@ const io = require('socket.io')(server, {
         }
       
       });
-      // Xử lý các sự kiện từ client
       socket.on('repchat', (data) => {
         for(let i = 0 ; i < clients.length; i++) {
           if(clients[i].Client === data.IdSend) {
@@ -89,7 +76,7 @@ const io = require('socket.io')(server, {
           }
         }
       });
-            // Xử lý các sự kiện từ client
+    
       socket.on('sendMessage', (data,callback) => {
           for(let i = 0 ; i < clients.length; i++) {
             if(clients[i].ClientId === socket.id) {
@@ -117,44 +104,33 @@ const io = require('socket.io')(server, {
           }
       });
 
-      // Xử lý các sự kiện từ client
       socket.on('createProductTable', (data) => {
-        // Gửi tin nhắn đến tất cả các client kết nối
         io.emit('notiBillTable', data , 'Có Đơn Hàng Mới');
       });
-      // Xử lý các sự kiện từ client
       socket.on('checkout', (data) => {
-        // Gửi tin nhắn đến tất cả các client kết nối
         io.emit('repcheckout', data, 'Gọi Thanh Toán');
       });
-      // Xử lý các sự kiện từ client
       socket.on('successproduct', (table,product) => {
         for(let i = 0 ; i < clients.length; i++) {
           if(clients[i].Client === table) {
             io.to(clients[i].ClientId).emit('repsuccessproduct', { data: product });
           }
         }
-        // Gửi tin nhắn đến tất cả các client kết nối
       });
-      // Xử lý các sự kiện từ client
       socket.on('checkoutsuccess', (table) => {
         for(let i = 0 ; i < clients.length; i++) {
           if(clients[i].Client === table) {
             io.to(clients[i].ClientId).emit('repcheckoutsuccess');
           }
         }
-        // Gửi tin nhắn đến tất cả các client kết nối
       });
-      // Xử lý các sự kiện từ client
       socket.on('newBill', () => {
         for(let i = 0 ; i < clients.length; i++) {
           if(clients[i].Client === 1) {
             io.to(clients[i].ClientId).emit('repNewbill');
           }
         }
-        // Gửi tin nhắn đến tất cả các client kết nối
       });
-      // Xử lý các sự kiện từ  
       socket.on('disconnection', (data) => {
         for(let i = 0; i < clients.length; i ++) {
           if(clients[i].Client === data) {
@@ -163,9 +139,7 @@ const io = require('socket.io')(server, {
         }
         console.log('disconnect',(data))
         console.log(clients)
-        // Gửi tin nhắn đến tất cả các client kết nối
       });
-      // Xử lý các sự kiện từ  
       socket.on('disconnect', () => {
         for(let i = 0; i < clients.length; i ++) {
           if(clients[i].ClientId === socket.id) {
@@ -174,9 +148,7 @@ const io = require('socket.io')(server, {
         }
         console.log('disconnect',(socket.id))
         console.log(clients)
-        // Gửi tin nhắn đến tất cả các client kết nối
       });
-        // Listen for the 'disconnect' event when the client disconnects
     });
     return io;
 }

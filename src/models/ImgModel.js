@@ -53,8 +53,8 @@ const updateSlider = async (Img,Name, result) => {
     })
 } 
 
-const updateLinkYoutube =  (Img,Name, result) => {
-     db.query('UPDATE imgbody SET Img = ? WHERE Img = ?',[Img,Name],function(err,res){
+const updateLinkYoutube = async (Img,Name, result) => {
+    await db.query('UPDATE imgbody SET Img = ? WHERE Img = ?',[Img,Name],function(err,res){
         if(err) {
             result (err)
             return

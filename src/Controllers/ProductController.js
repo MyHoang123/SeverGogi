@@ -53,9 +53,7 @@ exports.deleteproduct = async (req, res) => {
 }
 exports.deleteType = async (req, res) => {
     const { IdType } = req.body
-    console.log(IdType)
     Product.deleteType(IdType,function(data) {
-    console.log(data)
            if(data !== null) {
                return res.status(200).json({
                   massege: 'Thanh cong',
@@ -329,8 +327,6 @@ exports.showDetailProduct = async (req, res) => {
 }
 exports.createDetailProduct = async (req, res) => {
     const { IdType, IdProduct } = req.body;
-    console.log("🚀 ~ exports.createDetailProduct= ~ IdProduct:", IdProduct)
-    console.log("🚀 ~ exports.createDetailProduct= ~ IdType:", IdType)
     Product.inserDetailtProduct(parseInt(IdType),parseInt(IdProduct),(data) => {
         if(data !== null) {
             return res.status(200).json({
@@ -356,12 +352,13 @@ exports.voucher = async (req, res) => {
     Product.voucher(voucher,function(data) {
         if(data === null) {
             return res.status(200).json({
-               massege: 'voucher khong ton tai',
+                massege: 'That bai',
+                data: 0
             })
         }
         else {
             return res.status(200).json({
-                massege: 'thanh cong ',
+                massege: 'Thanh cong',
                 data: data
              })
         }
@@ -369,12 +366,29 @@ exports.voucher = async (req, res) => {
 }
 // Type
 exports.showType = async (req, res) => {
-    Product.getAllTypes(function(data) {
-     return res.status(200).json({
-        massege: 'thanh cong',
-        data: data
-     })
+    const getTypes = new Promise((resolve,reject) => {
+        Product.getCategoriType(function(data) {
+            if(data !== null) {
+                resolve(data)
+            }
+        })
     })
+    const StartPromise = async () => {
+        const types = await getTypes
+        const resuilt = types.reduce((accumulator,current) => {
+            const { NameType, NameCate, IdType, IdCate } = current;
+            if (!accumulator[NameType]) {
+                accumulator[NameType] = []; 
+            }
+            accumulator[NameType].push({ NameCate, IdType, IdCate });
+            return accumulator;
+        },{})
+        return res.status(200).json({
+            massege: 'thanh cong',
+            data: resuilt
+         })
+    }
+    StartPromise()
 }
 exports.showTypeAdmin = async (req, res) => {
     Product.getAllTypes(function(data) {

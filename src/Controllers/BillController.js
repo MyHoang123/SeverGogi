@@ -105,9 +105,7 @@ exports.showProductBill = async (req, res) => {
     }
 exports.showBill = async (req, res) => {
     const  IdAcc  = req.Id;
-    Bill.getBill(IdAcc,function(data) {
-        console.log("🚀 ~ Bill.getBill ~ data:", data)
-        console.log("🚀 ~ Bill.getBill ~ IdAcc:", IdAcc)
+    Bill.getBill(IdAcc,async function(data) {
         if(data === null) {
             return res.status(200).json({
                 massege: 'Không tìm thấy đơn hàng',
@@ -121,7 +119,7 @@ exports.showBill = async (req, res) => {
         }
     })
 }
-exports.getProductHottrend = (req, res) => {
+exports.getProductHottrend = async (req, res) => {
     Bill.getProductHottrend(function(data) {
         if(data === null) {
             return res.status(200).json({
@@ -136,7 +134,7 @@ exports.getProductHottrend = (req, res) => {
         }
     })
 }
-exports.AllBIll = (req, res) => {
+exports.AllBIll = async (req, res) => {
     let AllBill = 0
     let AllBillOrder = 0
     let PriceBill = 0
@@ -246,7 +244,7 @@ exports.getAllBillDate = async (req, res) => {
     })
 }
 exports.getBill = async (req, res) => {
-    const {IdBill} = req.body
+    const IdBill = req.query.idbill
     Bill.getBillDetail(IdBill,async function(data) {
         if(data === null) {
             return res.status(200).json({
@@ -265,7 +263,7 @@ exports.getBill = async (req, res) => {
     })
 }
 exports.createBill = async (req, res) => {
-    const { TotalPrice, Name, Sdt, Data, Address, Destination, Note } = req.body;
+    const { TotalPrice, Name, Sdt, Data, Address, PriceVoucher , Destination, Note } = req.body;
     const { IdPay, UrlPay, StatusPay } = req.payment
     const  IdAcc  = req.Id;
     const currentDate = new Date()
@@ -276,7 +274,7 @@ exports.createBill = async (req, res) => {
     const minutes = currentDate.getMinutes()
     const secon = currentDate.getSeconds()
     const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${secon}`
-        Bill.createBill(IdAcc,Name,Sdt,TotalPrice,Address,Destination,formattedDate,Note,IdPay,StatusPay,(data) => {
+        Bill.createBill(PriceVoucher,IdAcc,Name,Sdt,TotalPrice,Address,Destination,formattedDate,Note,IdPay,StatusPay,(data) => {
             if(data === null) {
                 return res.status(200).json({
                         massege: 'That bai',
