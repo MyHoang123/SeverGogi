@@ -268,9 +268,7 @@ exports.createBillOrder = async (req, res) => {
                 const noteValue = item.Note ? `'${item.Note}'` : "NULL";
                 return `(${Table.Id}, ${item.Id}, ${item.quantity},0, ${noteValue})`;
             }).join(',');
-            console.log("🚀 ~ values ~ values:", values)
             Order.createbillproductOrder(values,(data) => {
-                console.log("🚀 ~ Order.createbillproductOrder ~ data:", data)
                 if(data === null) {
                     return res.status(200).json({
                         massege: 'That bai',

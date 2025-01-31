@@ -70,7 +70,7 @@ const getAllProductCate = function (IdCate,callback) {
     })
 }
 const getBestsellerCate = function (callback) {
-    db.query(`SELECT p.Id, p.Name,p.Img,p.Dsription, p.Price,p.Sales,cm.Star FROM products p INNER JOIN (SELECT IdCategoris, Id, Sales FROM products WHERE IdCategoris != 9 ORDER BY Sales DESC LIMIT 6) AS ranked_products  ON p.Id = ranked_products.Id INNER JOIN categoris c ON c.Id = p.IdCategoris LEFT JOIN comment cm ON p.Id = cm.IdProduct GROUP BY p.Id, p.Name, p.Img, p.Dsription, p.Price, p.Sales, cm.Star;` , function(err, data) {
+    db.query(`SELECT p.Id, p.Name,p.Img,p.Dsription, p.Price,p.Sales,cm.Star FROM products p INNER JOIN (SELECT IdCategoris, Id, Sales FROM products WHERE IdCategoris != 9 ORDER BY Sales DESC LIMIT 6) AS ranked_products  ON p.Id = ranked_products.Id INNER JOIN categoris c ON c.Id = p.IdCategoris LEFT JOIN comment cm ON p.Id = cm.IdProduct GROUP BY c.Id;` , function(err, data) {
         if(err) {
             callback (null)
         }

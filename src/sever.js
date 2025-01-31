@@ -17,7 +17,6 @@ db.conn;
 apiroute(app)
 // Websocket
 SocketService(server)
-// Routes
 server.listen(process.env.PORT_SEVER, () => {
 console.log(`Example app listening on port ${process.env.port}`)
 })
