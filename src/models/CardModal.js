@@ -11,7 +11,7 @@ const showCard = function (IdAcc,callback)  {
     })
 } 
 const addCard = async (IdAcc, IdProduct, result) => {
-    await db.query('INSERT INTO card (IdAcc,IdProduct) VALUES (?,?);',[IdAcc,IdProduct], function(err,data){
+     db.query('INSERT INTO card (IdAcc,IdProduct) VALUES (?,?);',[IdAcc,IdProduct], function(err,data){
         if(err) {
             result (null)
         }
@@ -31,7 +31,7 @@ const showProductCard = function (IdProduct,callback)  {
     })
 } 
 const deleteCard = async (IdAcc,IdProduct, result) => {
-    await db.query('DELETE FROM card WHERE IdAcc = ? AND IdProduct = ?',[IdAcc,IdProduct],function(err,res){
+     db.query('DELETE FROM card WHERE IdAcc = ? AND IdProduct = ?',[IdAcc,IdProduct],function(err,res){
         if(err) {
             result (null)
             return

@@ -10,7 +10,7 @@ const getNotifi = function (IdAcc, callback)  {
     })
 }
 const updateNoti = async (IdAcc, result) => {
-    await db.query('UPDATE annout SET Status = 1 WHERE IdAcc = ?',[IdAcc], function(err,data){
+     db.query('UPDATE annout SET Status = 1 WHERE IdAcc = ?',[IdAcc], function(err,data){
         if(err) {
             result (null)
         }
@@ -20,7 +20,7 @@ const updateNoti = async (IdAcc, result) => {
     })
 }
 const deleteNoti = async (IdAcc, result) => {
-    await db.query('DELETE FROM annout WHERE IdAcc = ?',[IdAcc], function(err,data){
+     db.query('DELETE FROM annout WHERE IdAcc = ?',[IdAcc], function(err,data){
         if(err) {
             result (null)
         }

@@ -40,7 +40,7 @@ const getAllImgPageNew = function (result) {
     })
 }
 const updateSlider = async (Img,Name, result) => {
-    await db.query('UPDATE slide SET img = ? WHERE img = ?',[Img,Name],function(err,res){
+     db.query('UPDATE slide SET img = ? WHERE img = ?',[Img,Name],function(err,res){
         if(err) {
             result (err)
             return
@@ -54,7 +54,7 @@ const updateSlider = async (Img,Name, result) => {
 } 
 
 const updateLinkYoutube = async (Img,Name, result) => {
-    await db.query('UPDATE imgbody SET Img = ? WHERE Img = ?',[Img,Name],function(err,res){
+     db.query('UPDATE imgbody SET Img = ? WHERE Img = ?',[Img,Name],function(err,res){
         if(err) {
             result (err)
             return

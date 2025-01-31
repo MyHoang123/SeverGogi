@@ -71,7 +71,7 @@ const getUserIdAcc = function (id, callback)  {
     })
 }
 const updateUser = async (Acc,Pass,Access,idAcc) => {
-    await db.query('UPDATE account SET Acc = ?,Pass = ?,Access = ? WHERE idAcc = ?',[Acc,Pass,Access,idAcc])
+    db.query('UPDATE account SET Acc = ?,Pass = ?,Access = ? WHERE idAcc = ?',[Acc,Pass,Access,idAcc])
 } 
 const login = async (Acc,Pass,result) => {
     db.query(`SELECT Id FROM account WHERE Name=? AND Pass=? AND Classify =?`,[`0${Acc}`,Pass,'user'], function(err, res){
@@ -87,7 +87,7 @@ const login = async (Acc,Pass,result) => {
     })
 }
 const getUserLogin = async (Id,result) => {
-    await db.query(`SELECT Name, UserName, Sdt, Email, Avt, Gender, Birthday, Classify FROM account WHERE Id = ?`,[Id], function(err, res){
+    db.query(`SELECT Name, UserName, Sdt, Email, Avt, Gender, Birthday, Classify FROM account WHERE Id = ?`,[Id], function(err, res){
         if(err) {
             result (null)
             return
@@ -100,7 +100,7 @@ const getUserLogin = async (Id,result) => {
     })
 }
 const getPhoneOTP = async (Phone,result) => {
-    await db.query(`SELECT a.Id, a.Name, a.UserName, a.Sdt, a.Email, a.Avt, a.Gender, a.Birthday, a.Classify FROM account a WHERE a.Sdt = ? AND a.Classify =?`,[Phone,['user']], function(err, res){
+    db.query(`SELECT a.Id, a.Name, a.UserName, a.Sdt, a.Email, a.Avt, a.Gender, a.Birthday, a.Classify FROM account a WHERE a.Sdt = ? AND a.Classify =?`,[Phone,['user']], function(err, res){
         if(err) {
             result (null)
             return
@@ -113,7 +113,7 @@ const getPhoneOTP = async (Phone,result) => {
     })
 }
 const loginAdmin = async (Acc,Pass,result) => {
-    await db.query(`SELECT Id FROM account WHERE Name=? AND Pass=? AND Access = 1`,[Acc,Pass], function(err, res){
+    db.query(`SELECT Id FROM account WHERE Name=? AND Pass=? AND Access = 1`,[Acc,Pass], function(err, res){
         if(err) {
             result (null)
             return
@@ -126,10 +126,10 @@ const loginAdmin = async (Acc,Pass,result) => {
     })
 }
 const deleteuser = async (id) => {
-    await db.query('DELETE  FROM account WHERE idAcc = ?',[id])
+    db.query('DELETE  FROM account WHERE idAcc = ?',[id])
 } 
 const createVoucher = async (Voucher,PriceVoucher,result) => {
-    await db.query('INSERT INTO voucher (Voucher, PriceVoucher)  VALUE(?,?)',[Voucher,PriceVoucher], function(err,res){
+    db.query('INSERT INTO voucher (Voucher, PriceVoucher)  VALUE(?,?)',[Voucher,PriceVoucher], function(err,res){
         if(err) {
             result (null)
             return
@@ -142,7 +142,7 @@ const createVoucher = async (Voucher,PriceVoucher,result) => {
     })
 }
 const register = async (Acc, Sdt, Pass,Classify,Gender,Avt,result) => {
-    await db.query('INSERT INTO account (Name, Sdt, Pass, Access, Classify, Gender, Avt)  VALUE(?,?,?,?,?,?,?)',[`0${Acc}`,Sdt,Pass,[2],Classify,Gender,Avt], function(err,res){
+    db.query('INSERT INTO account (Name, Sdt, Pass, Access, Classify, Gender, Avt)  VALUE(?,?,?,?,?,?,?)',[`0${Acc}`,Sdt,Pass,[2],Classify,Gender,Avt], function(err,res){
         if(err) {
             result (null)
             return
@@ -155,7 +155,7 @@ const register = async (Acc, Sdt, Pass,Classify,Gender,Avt,result) => {
     })
 }
 const AddAccEmail = async (UserName, Email, Gender,Avt,result) => {
-    await db.query('INSERT INTO account (Name, UserName, Email, Gender, Pass, Access, Classify, Avt)  VALUE(?,?,?,?,?,?,?,?)',[Email,UserName,Email,Gender,Email,2,'Email',Avt], function(err,res){
+    db.query('INSERT INTO account (Name, UserName, Email, Gender, Pass, Access, Classify, Avt)  VALUE(?,?,?,?,?,?,?,?)',[Email,UserName,Email,Gender,Email,2,'Email',Avt], function(err,res){
         if(err) {
             result (null)
             return
@@ -168,7 +168,7 @@ const AddAccEmail = async (UserName, Email, Gender,Avt,result) => {
     })
 }
 const AddHistoryUser = async (User, IdProduct,result) => {
-    await db.query('CALL AddProduct(?,?)',[User,IdProduct],function(err,res){
+    db.query('CALL AddProduct(?,?)',[User,IdProduct],function(err,res){
         if(err) {
             result (err)
             return
@@ -182,7 +182,7 @@ const AddHistoryUser = async (User, IdProduct,result) => {
 
 }
 const updateAccount = async (UserName,Sdt,Email,Gender,BirthDay,IdAcc,result) => {
-    await db.query('UPDATE account SET UserName = ?, Sdt = ?, Email = ?, Gender = ?,BirthDay = ? WHERE Id = ?',[UserName,Sdt,Email,Gender,BirthDay,IdAcc],function(err,res){
+    db.query('UPDATE account SET UserName = ?, Sdt = ?, Email = ?, Gender = ?,BirthDay = ? WHERE Id = ?',[UserName,Sdt,Email,Gender,BirthDay,IdAcc],function(err,res){
         if(err) {
             result (null)
             return
@@ -196,7 +196,7 @@ const updateAccount = async (UserName,Sdt,Email,Gender,BirthDay,IdAcc,result) =>
 
 }
 const getOldAvt = async (Id,result) => {
-    await db.query('SELECT Avt FROM account WHERE Id = ?',[Id],function(err,res){
+    db.query('SELECT Avt FROM account WHERE Id = ?',[Id],function(err,res){
         if(err) {
             result (err)
             return
@@ -209,7 +209,7 @@ const getOldAvt = async (Id,result) => {
     })
 } 
 const updateAvt = async (Avt,Id, result) => {
-    await db.query('UPDATE account SET Avt = ? WHERE Id = ?',[Avt,Id],function(err,res){
+    db.query('UPDATE account SET Avt = ? WHERE Id = ?',[Avt,Id],function(err,res){
         if(err) {
             result (err)
             return
@@ -223,7 +223,7 @@ const updateAvt = async (Avt,Id, result) => {
 } 
 // INSERT INTO `account` (`idAcc`, `Acc`, `Pass`, `Access`) VALUES
 // const register = async (Acc, Pass) => {
-//     await db.query('INSERT INTO account (Acc, Pass)  VALUE(?,?)',[Acc,Pass])
+//     db.query('INSERT INTO account (Acc, Pass)  VALUE(?,?)',[Acc,Pass])
 // }
 module.exports = {
     AddHistoryUser,

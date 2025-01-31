@@ -210,7 +210,7 @@ const getProductId = function (id, callback)  {
     })
 } 
 const updateVisibleProduct = async (Id, result) => {
-    await db.query('UPDATE products SET Visible = 1 WHERE Id IN (?)',[Id],function(err,res){
+    db.query('UPDATE products SET Visible = 1 WHERE Id IN (?)',[Id],function(err,res){
         if(err) {
             result (null)
             return
@@ -223,7 +223,7 @@ const updateVisibleProduct = async (Id, result) => {
     })
 } 
 const updateHidenProduct = async (Id, result) => {
-    await db.query('UPDATE products SET Visible = 0 WHERE Id IN (?)',[Id],function(err,res){
+    db.query('UPDATE products SET Visible = 0 WHERE Id IN (?)',[Id],function(err,res){
         if(err) {
             result (null)
             return
@@ -236,7 +236,7 @@ const updateHidenProduct = async (Id, result) => {
     })
 } 
 const insertProduct = async (Name,Price,Img,Dsription,IdCategoris,CreatedDateTime,CreatedUserId,LastModifiedDateTime,LastModifiedUserId,result) => {
-    await db.query('INSERT INTO products (Name, Price, Img, Dsription, IdCategoris,CreatedDateTime, CreatedUserId , LastModifiedDateTime,LastModifiedUserId)  VALUE(?,?,?,?,?,?,?,?,?)',[Name,Price,Img,Dsription,IdCategoris,CreatedDateTime,CreatedUserId,LastModifiedDateTime,LastModifiedUserId],function(err,res){
+    db.query('INSERT INTO products (Name, Price, Img, Dsription, IdCategoris,CreatedDateTime, CreatedUserId , LastModifiedDateTime,LastModifiedUserId)  VALUE(?,?,?,?,?,?,?,?,?)',[Name,Price,Img,Dsription,IdCategoris,CreatedDateTime,CreatedUserId,LastModifiedDateTime,LastModifiedUserId],function(err,res){
         if(err) {
             result (null)
             return
@@ -249,7 +249,7 @@ const insertProduct = async (Name,Price,Img,Dsription,IdCategoris,CreatedDateTim
     })
 }
 const updateproduct = async (Name,Price,Img,Dsription,IdCategoris,Id,result) => {
-    await db.query('UPDATE products SET Name = ?,Price = ?,Img = ?, Dsription = ?, IdCategoris = ? WHERE Id = ?',[Name,Price,Img,Dsription,IdCategoris,Id],function(err,res){
+    db.query('UPDATE products SET Name = ?,Price = ?,Img = ?, Dsription = ?, IdCategoris = ? WHERE Id = ?',[Name,Price,Img,Dsription,IdCategoris,Id],function(err,res){
         if(err) {
             result (null)
             return
@@ -262,7 +262,7 @@ const updateproduct = async (Name,Price,Img,Dsription,IdCategoris,Id,result) => 
     })
 } 
 const editproduct = async (Name,Price,Dsription,IdCategoris,Id,result) => {
-    await db.query('UPDATE products SET Name = ?,Price = ?, Dsription = ?, IdCategoris = ? WHERE Id = ?',[Name,Price,Dsription,IdCategoris,Id],function(err,res){
+    db.query('UPDATE products SET Name = ?,Price = ?, Dsription = ?, IdCategoris = ? WHERE Id = ?',[Name,Price,Dsription,IdCategoris,Id],function(err,res){
         if(err) {
             result (null)
             return
@@ -275,28 +275,28 @@ const editproduct = async (Name,Price,Dsription,IdCategoris,Id,result) => {
     })
 } 
 const updatetype = async (Name,IdMenu,Price,Id) => {
-    await db.query('UPDATE types SET Name = ?,IdMenu = ?, Price = ? WHERE Id = ?',[Name,IdMenu,Price,Id])
+    db.query('UPDATE types SET Name = ?,IdMenu = ?, Price = ? WHERE Id = ?',[Name,IdMenu,Price,Id])
 }
 const updateDetailType = async (IdType,IdCategoris,Id) => {
-    await db.query('UPDATE detailtypes SET IdType = ?,IdCategori = ? WHERE Id = ?',[IdType,IdCategoris,Id])
+    db.query('UPDATE detailtypes SET IdType = ?,IdCategori = ? WHERE Id = ?',[IdType,IdCategoris,Id])
 } 
 const updateDetailProduct = async (IdType,IdProduct,Id) => {
-    await db.query('UPDATE detailproducts SET IdType = ?,IdCategori = ? WHERE Id = ?',[IdType,IdProduct,Id])
+    db.query('UPDATE detailproducts SET IdType = ?,IdCategori = ? WHERE Id = ?',[IdType,IdProduct,Id])
 } 
 const updatecategori = async (Name,IdType,LastModifiedDateTime, Id) => {
-    await db.query('UPDATE categoris SET Name = ?, IdType = ?, 	LastModifiedDateTime = ? WHERE Id = ?',[Name,IdType,LastModifiedDateTime,Id])
+    db.query('UPDATE categoris SET Name = ?, IdType = ?, 	LastModifiedDateTime = ? WHERE Id = ?',[Name,IdType,LastModifiedDateTime,Id])
 } 
 const insertctgr = async (Name,CreatedDateTime,CreatedUserId ,LastModifiedDateTime,LastModifiedUserId) => {
-    await db.query('INSERT INTO categoris (Name,CreatedDateTime, CreatedUserId , LastModifiedDateTime,LastModifiedUserId )  VALUE(?,?,?,?,?)',[Name,CreatedDateTime,CreatedUserId,LastModifiedDateTime,LastModifiedUserId])
+    db.query('INSERT INTO categoris (Name,CreatedDateTime, CreatedUserId , LastModifiedDateTime,LastModifiedUserId )  VALUE(?,?,?,?,?)',[Name,CreatedDateTime,CreatedUserId,LastModifiedDateTime,LastModifiedUserId])
 } 
 const insertType = async (Name,Price,IdMenu,CreatedDateTime,CreatedUserId ,LastModifiedDateTime,LastModifiedUserId ) => {
-    await db.query('INSERT INTO types (Name,IdMenu, Price, CreatedDateTime, CreatedUserId , LastModifiedDateTime,LastModifiedUserId )  VALUE(?,?,?,?,?,?,?)',[Name,IdMenu,Price,CreatedDateTime,CreatedUserId,LastModifiedDateTime,LastModifiedUserId])
+    db.query('INSERT INTO types (Name,IdMenu, Price, CreatedDateTime, CreatedUserId , LastModifiedDateTime,LastModifiedUserId )  VALUE(?,?,?,?,?,?,?)',[Name,IdMenu,Price,CreatedDateTime,CreatedUserId,LastModifiedDateTime,LastModifiedUserId])
 }
 const inserDetailtType = async (IdType, IdCategoris ) => {
-    await db.query('INSERT INTO detailtypes (IdType,IdCategoris )  VALUE(?,?)',[IdType,IdCategoris])
+    db.query('INSERT INTO detailtypes (IdType,IdCategoris )  VALUE(?,?)',[IdType,IdCategoris])
 }
 const inserDetailtProduct = async (IdType, IdProduct,callback) => {
-    await db.query('INSERT INTO detailproducts (IdType,IdProduct)  VALUE(?,?)',[IdType,IdProduct],function(err, data) {
+    db.query('INSERT INTO detailproducts (IdType,IdProduct)  VALUE(?,?)',[IdType,IdProduct],function(err, data) {
         if(err) {
             callback (null)
         }
@@ -306,7 +306,7 @@ const inserDetailtProduct = async (IdType, IdProduct,callback) => {
     })
 }
 const createMenu = async (Name) => {
-    await db.query('INSERT INTO menu (Name)  VALUE(?)',[Name])
+    db.query('INSERT INTO menu (Name)  VALUE(?)',[Name])
 } 
 const deleteproduct = function (IdProduct,callback) {
     db.query(`DELETE FROM products WHERE Id = ?;`,[IdProduct], function(err, data) {
