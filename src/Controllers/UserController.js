@@ -80,7 +80,6 @@ exports.sendOTPRegister = (req, res) => {
 }
 exports.verifyOTPRegister = (req, res) => {
     const { OTP } = req.body
-    console.log("🚀 ~ OTP:", OTP)
     const Phone = req.Phone
     if (OTP === "221133") {
         Account.getAccount(Phone, (user) => {
