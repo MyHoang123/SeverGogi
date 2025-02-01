@@ -17,7 +17,6 @@ exports.addChat = (Data, result) => {
         })
     }
 }
-
 exports.getAlUserChat = (req,res) => {
     const IdAcc = req.Id
     Chat.getUserChat(IdAcc,async (data) => {

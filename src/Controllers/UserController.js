@@ -203,7 +203,6 @@ exports.updatePassRegister = function (req, res) {
     const { Pass, Gender } = req.body
     const Phone = req.phone
     Account.register(Phone, Phone, Pass, 'user', Gender, parseInt(Gender) === 1 ? 'male.png' : parseInt(Gender) === 2 ? 'female.png' : 'other.png', (user) => {
-        console.log("🚀 ~ Account.register ~ user:", user)
         if (user !== null) {
             return res.status(200).json({
                 massege: 'Thanh cong',
