@@ -20,7 +20,7 @@ const CountTotalPrice = async (result) => {
     })
 }
 const getBill = function (IdAcc, callback)  {
-    db.query(`SELECT p.Id, b.Id, b.IdAcc, b.TotalPrice, 'visible' AS Filter, b.Status,b.StatusPay, SUBSTRING(b.DATETIME, 1, 10) AS DateOnly, CONCAT('[', GROUP_CONCAT(CONCAT('{"Name":"', p.Name, '", "Id":', p.Id, ', "Price":', p.Price, ', "Img":"', p.Img, '", "NameCate":"', ct.Name, '", "sl":', (d.Price DIV p.Price), IF(d.Note IS NOT NULL, CONCAT(', "Note":"', d.Note, '"'), ''), '}') SEPARATOR ', '),']') AS Data  FROM bill b INNER JOIN detailbill d ON b.Id = d.IdBill INNER JOIN products p ON p.Id = d.IdProduct INNER JOIN categoris ct ON ct.Id = p.IdCategoris WHERE b.IdAcc = ? GROUP BY b.Id ORDER BY b.Id DESC;`,[IdAcc], function(err,data) {
+    db.query(`SELECT p.Id, b.Id, b.IdAcc, b.TotalPrice, 'visible' AS Filter, b.Status,b.StatusPay, SUBSTRING(b.DATETIME, 1, 10) AS DateOnly, CONCAT('[', GROUP_CONCAT(CONCAT('{"Name":"', p.Name, '", "Id":', p.Id, ', "Price":', p.Price, ', "Img":"', p.Img, '", "NameCate":"', ct.Name, '", "sl":', (d.Price DIV p.Price), IF(d.Note IS NOT NULL, CONCAT(', "Note":"', d.Note, '"'), ''), '}') SEPARATOR ', '),']') AS Data  FROM bill b INNER JOIN detailbill d ON b.Id = d.IdBill INNER JOIN products p ON p.Id = d.IdProduct INNER JOIN categoris ct ON ct.Id = p.IdCategoris WHERE b.IdAcc = ? GROUP BY b.Id, p.Id, b.IdAcc, b.TotalPrice  ORDER BY b.Id DESC;`,[IdAcc], function(err,data) {
        if(err || data.length <= 0) {
            callback (null)
        }
@@ -33,7 +33,7 @@ const updateSale = async (Id,Amount) => {
     db.query(`UPDATE products SET Sales = Sales + ${Amount}  WHERE Id = ?`,[Id])
 } 
 const getBillUser = function (IdAcc,Status, callback)  {
-    db.query(`SELECT b.Id, b.IdAcc, b.TotalPrice, b.Status, b.StatusPay ,SUBSTRING(b.DATETIME, 1, 10) AS DateOnly,  CONCAT('[', GROUP_CONCAT(CONCAT('{"Name":"', p.Name, '", "Id":', p.Id, ', "Price":', p.Price, ', "Img":"', p.Img, '", "NameCate":"', ct.Name, '", "sl":', (d.Price DIV p.Price), IF(d.Note IS NOT NULL, CONCAT(', "Note":"', d.Note, '"'), ''), '}') SEPARATOR ', '),']') AS Data FROM bill b INNER JOIN detailbill d ON b.Id = d.IdBill INNER JOIN products p ON p.Id = d.IdProduct INNER JOIN categoris ct ON ct.Id = p.IdCategoris WHERE b.IdAcc = ? AND b.Status = ? GROUP BY b.Id ORDER BY b.Id DESC;`,[IdAcc,Status], function(err,data) {
+    db.query(`SELECT b.Id, b.IdAcc, b.TotalPrice, b.Status, b.StatusPay ,SUBSTRING(b.DATETIME, 1, 10) AS DateOnly,  CONCAT('[', GROUP_CONCAT(CONCAT('{"Name":"', p.Name, '", "Id":', p.Id, ', "Price":', p.Price, ', "Img":"', p.Img, '", "NameCate":"', ct.Name, '", "sl":', (d.Price DIV p.Price), IF(d.Note IS NOT NULL, CONCAT(', "Note":"', d.Note, '"'), ''), '}') SEPARATOR ', '),']') AS Data FROM bill b INNER JOIN detailbill d ON b.Id = d.IdBill INNER JOIN products p ON p.Id = d.IdProduct INNER JOIN categoris ct ON ct.Id = p.IdCategoris WHERE b.IdAcc = ? AND b.Status = ? GROUP BY b.Id, p.Id, b.IdAcc, b.TotalPrice  ORDER BY b.Id DESC;`,[IdAcc,Status], function(err,data) {
        if(err || data.length <= 0) {
            callback (null)
        }

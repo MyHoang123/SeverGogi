@@ -142,7 +142,8 @@ const createVoucher = async (Voucher,PriceVoucher,result) => {
     })
 }
 const register = async (Acc, Sdt, Pass,Classify,Gender,Avt,result) => {
-    db.query('INSERT INTO account (Name, Sdt, Pass, Access, Classify, Gender, Avt)  VALUE(?,?,?,?,?,?,?)',[`0${Acc}`,Sdt,Pass,[2],Classify,Gender,Avt], function(err,res){
+    db.query('INSERT INTO account (Name, UserName , Sdt, Email, Pass, Access, Classify, Gender, Avt, Birthday)  VALUE(?,?,?,?,?,?,?,?,?,?)',[`0${Acc}`,"",Sdt,"",Pass,[2],Classify,Gender,Avt,""], function(err,res){
+        console.log("🚀 ~ db.query ~ err:", err)
         if(err) {
             result (null)
             return
