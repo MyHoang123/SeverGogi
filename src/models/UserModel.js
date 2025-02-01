@@ -182,9 +182,10 @@ const AddHistoryUser = async (User, IdProduct,result) => {
     })
 
 }
-const updateAccount = async (UserName,Sdt,Email,Gender,BirthDay,IdAcc,result) => {
-    db.query('UPDATE account SET UserName = ?, Sdt = ?, Email = ?, Gender = ?,BirthDay = ? WHERE Id = ?',[UserName,Sdt,Email,Gender,BirthDay,IdAcc],function(err,res){
+const updateAccount = async (UserName,Sdt,Email,BirthDay,IdAcc,result) => {
+    db.query('UPDATE account SET UserName = ?, Sdt = ?, Email = ?,BirthDay = ? WHERE Id = ?',[UserName,Sdt,Email,BirthDay,IdAcc],function(err,res){
         if(err) {
+            console.log("🚀 ~ db.query ~ err:", err)
             result (null)
             return
         }
