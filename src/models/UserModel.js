@@ -70,10 +70,10 @@ const getUserIdAcc = function (id, callback)  {
         }
     })
 }
-const updateUser = async (Acc,Pass,Access,idAcc) => {
+const updateUser = (Acc,Pass,Access,idAcc) => {
     db.query('UPDATE account SET Acc = ?,Pass = ?,Access = ? WHERE idAcc = ?',[Acc,Pass,Access,idAcc])
 } 
-const login = async (Acc,Pass,result) => {
+const login = (Acc,Pass,result) => {
     db.query(`SELECT Id FROM account WHERE Name=? AND Pass=? AND Classify =?`,[`0${Acc}`,Pass,'user'], function(err, res){
         if(err) {
             result (null)
@@ -86,7 +86,7 @@ const login = async (Acc,Pass,result) => {
         result (null,null)
     })
 }
-const getUserLogin = async (Id,result) => {
+const getUserLogin = (Id,result) => {
     db.query(`SELECT Name, UserName, Sdt, Email, Avt, Gender, Birthday, Classify FROM account WHERE Id = ?`,[Id], function(err, res){
         if(err) {
             result (null)
@@ -99,7 +99,7 @@ const getUserLogin = async (Id,result) => {
         result (null,null)
     })
 }
-const getPhoneOTP = async (Phone,result) => {
+const getPhoneOTP = (Phone,result) => {
     db.query(`SELECT a.Id, a.Name, a.UserName, a.Sdt, a.Email, a.Avt, a.Gender, a.Birthday, a.Classify FROM account a WHERE a.Sdt = ? AND a.Classify =?`,[Phone,['user']], function(err, res){
         if(err) {
             result (null)
@@ -112,7 +112,7 @@ const getPhoneOTP = async (Phone,result) => {
         result (null,null)
     })
 }
-const loginAdmin = async (Acc,Pass,result) => {
+const loginAdmin = (Acc,Pass,result) => {
     db.query(`SELECT Id FROM account WHERE Name=? AND Pass=? AND Access = 1`,[Acc,Pass], function(err, res){
         if(err) {
             result (null)
@@ -125,10 +125,10 @@ const loginAdmin = async (Acc,Pass,result) => {
         result (null,null)
     })
 }
-const deleteuser = async (id) => {
+const deleteuser = (id) => {
     db.query('DELETE  FROM account WHERE idAcc = ?',[id])
 } 
-const createVoucher = async (Voucher,PriceVoucher,result) => {
+const createVoucher = (Voucher,PriceVoucher,result) => {
     db.query('INSERT INTO voucher (Voucher, PriceVoucher)  VALUE(?,?)',[Voucher,PriceVoucher], function(err,res){
         if(err) {
             result (null)
@@ -141,9 +141,8 @@ const createVoucher = async (Voucher,PriceVoucher,result) => {
         result (null,null)
     })
 }
-const register = async (Acc, Sdt, Pass,Classify,Gender,Avt,result) => {
-    db.query('INSERT INTO account (Name, UserName , Sdt, Email, Pass, Access, Classify, Gender, Avt, Birthday)  VALUE(?,?,?,?,?,?,?,?,?,?)',[`0${Acc}`,"",Sdt,"",Pass,[2],Classify,Gender,Avt,""], function(err,res){
-        console.log("🚀 ~ db.query ~ err:", err)
+const register = (Acc, Sdt, Pass,Classify,Gender,Avt,result) => {
+    db.query('INSERT INTO account (Name, Sdt, Pass, Access, Classify, Gender, Avt)  VALUE(?,?,?,?,?,?,?)',[`0${Acc}`,Sdt,Pass,[2],Classify,Gender,Avt], function(err,res){
         if(err) {
             result (null)
             return
@@ -155,7 +154,7 @@ const register = async (Acc, Sdt, Pass,Classify,Gender,Avt,result) => {
         result (null,null)
     })
 }
-const AddAccEmail = async (UserName, Email, Gender,Avt,result) => {
+const AddAccEmail = (UserName, Email, Gender,Avt,result) => {
     db.query('INSERT INTO account (Name, UserName, Email, Gender, Pass, Access, Classify, Avt)  VALUE(?,?,?,?,?,?,?,?)',[Email,UserName,Email,Gender,Email,2,'Email',Avt], function(err,res){
         if(err) {
             result (null)
@@ -168,7 +167,7 @@ const AddAccEmail = async (UserName, Email, Gender,Avt,result) => {
         result (null,null)
     })
 }
-const AddHistoryUser = async (User, IdProduct,result) => {
+const AddHistoryUser = (User, IdProduct,result) => {
     db.query('CALL AddProduct(?,?)',[User,IdProduct],function(err,res){
         if(err) {
             result (err)
@@ -182,10 +181,9 @@ const AddHistoryUser = async (User, IdProduct,result) => {
     })
 
 }
-const updateAccount = async (UserName,Sdt,Email,BirthDay,IdAcc,result) => {
-    db.query('UPDATE account SET UserName = ?, Sdt = ?, Email = ?,BirthDay = ? WHERE Id = ?',[UserName,Sdt,Email,BirthDay,IdAcc],function(err,res){
+const updateAccount = (UserName,Sdt,Email,Gender,BirthDay,IdAcc,result) => {
+    db.query('UPDATE account SET UserName = ?, Sdt = ?, Email = ?, Gender = ?,BirthDay = ? WHERE Id = ?',[UserName,Sdt,Email,Gender,BirthDay,IdAcc],function(err,res){
         if(err) {
-            console.log("🚀 ~ db.query ~ err:", err)
             result (null)
             return
         }
@@ -197,7 +195,7 @@ const updateAccount = async (UserName,Sdt,Email,BirthDay,IdAcc,result) => {
     })
 
 }
-const getOldAvt = async (Id,result) => {
+const getOldAvt = (Id,result) => {
     db.query('SELECT Avt FROM account WHERE Id = ?',[Id],function(err,res){
         if(err) {
             result (err)
@@ -210,7 +208,7 @@ const getOldAvt = async (Id,result) => {
         result (null,null)
     })
 } 
-const updateAvt = async (Avt,Id, result) => {
+const updateAvt = (Avt,Id, result) => {
     db.query('UPDATE account SET Avt = ? WHERE Id = ?',[Avt,Id],function(err,res){
         if(err) {
             result (err)
@@ -224,7 +222,7 @@ const updateAvt = async (Avt,Id, result) => {
     })
 } 
 // INSERT INTO `account` (`idAcc`, `Acc`, `Pass`, `Access`) VALUES
-// const register = async (Acc, Pass) => {
+// const register = (Acc, Pass) => {
 //     db.query('INSERT INTO account (Acc, Pass)  VALUE(?,?)',[Acc,Pass])
 // }
 module.exports = {

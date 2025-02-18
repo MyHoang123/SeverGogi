@@ -80,6 +80,7 @@ exports.sendOTPRegister = (req, res) => {
 }
 exports.verifyOTPRegister = (req, res) => {
     const { OTP } = req.body
+    console.log("🚀 ~ OTP:", OTP)
     const Phone = req.Phone
     if (OTP === "221133") {
         Account.getAccount(Phone, (user) => {
@@ -402,12 +403,12 @@ exports.getUserId = function (req, res) {
     })
 }
 exports.updateUser = async (req, res) => {
-    const { UserName, PhoneNumber, Email, Birthday } = req.body
+    const { UserName, PhoneNumber, Email, Gender, Birthday } = req.body
     const IdAcc = req.Id
     const regex = /^\d{9}$/
     const isvalidSdt = regex.test(PhoneNumber)
     if (isvalidSdt) {
-        Account.updateAccount(UserName, PhoneNumber, Email, Birthday, IdAcc, (data) => {
+        Account.updateAccount(UserName, PhoneNumber, Email, Gender, Birthday, IdAcc, (data) => {
             if (data !== null) {
                 return res.status(200).json({
                     massege: 'Thanh cong',

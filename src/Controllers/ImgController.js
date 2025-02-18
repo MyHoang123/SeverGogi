@@ -42,7 +42,7 @@ exports.getAllSlide = function (req, res) {
         else {
             return res.status(200).json({
                 massege: 'Faile',
-                data: null,
+                data: 'null',
             })
         }
     })
@@ -58,7 +58,7 @@ exports.getAllSlideMini = function (req, res) {
         else {
             return res.status(200).json({
                 massege: 'Faile',
-                data: null,
+                data: 'null',
             })
         }
     })
@@ -74,7 +74,7 @@ exports.getAllImgBody = function (req, res) {
         else {
             return res.status(200).json({
                 massege: 'Faile',
-                data: null,
+                data: 'null',
             })
         }
     })
@@ -90,7 +90,7 @@ exports.getAllImgPageNew = function (req, res) {
         else {
             return res.status(200).json({
                 massege: 'Faile',
-                data: null,
+                data: 'null',
             })
         }
     })
