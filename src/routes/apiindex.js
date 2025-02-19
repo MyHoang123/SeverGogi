@@ -3,6 +3,8 @@ const cors = require('cors');
 require('dotenv').config()
 const { checkToken } = require('../Middleware/JWTAction')
 const { checkTokenAdmin } = require('../Middleware/JWTAdmin')
+const { getBestSeller } = require( '../Middleware/CacheData');
+
 const  uploadFile  = require('../Middleware/Upload')
 const  { checkAuth }  = require('../Middleware/checkAuth')
 const  { PayMethod }  = require('../Middleware/PayMethod')
@@ -10,7 +12,7 @@ const  { checkPhone, checkInfoBill }  = require('../Middleware/checkPhone')
 const  { Respon }  = require('../Middleware/Respon')
 const  { checkTokenOrder }  = require('../Middleware/JWTOrder')
 const  { CheckPayOrder, OrderStatus }  = require('../Middleware/CheckPayOrder')
-// const  { checkPayMethod }  = require('../Middleware/checkPayMethod')
+
 const  { checkAutoRep, OnAutoRep, AutoRepComment }  = require('../Middleware/checkAutoRep')
 const  { checkOpen, OnOpen, checkStatus }  = require('../Middleware/checkOpen')
 const ProductController = require('../Controllers/ProductController')
@@ -31,7 +33,7 @@ const apiRoute = (app) => {
   router.get('/showtype',ProductController.showType)
   router.get('/showmenu',ProductController.showMenu)
   router.get('/showdetailtypes',ProductController.showDetailType)
-  router.get('/showbestellerCategoris',ProductController.showBestSellerCate)
+  router.get('/showbestellerCategoris',getBestSeller,ProductController.showBestSellerCate)
   router.get('/showcomment',CommentController.showComment)
   router.post('/verifyregister',checkAuth,UserController.verifyOTPRegister)
   router.post('/updatepassregister',checkPhone,UserController.updatePassRegister)
