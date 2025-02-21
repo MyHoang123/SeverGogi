@@ -31,6 +31,33 @@ exports.showProduct = async (req, res) => {
         }
     })
 }
+exports.showProductFind = async (req, res) => {
+    const value = req.query.keyword
+    const page = req.query.page
+    Product.getFindProduct(value,page,function(data) {
+           if(data !== null) {
+            Product.getFindProductLength(value,(lenght) => {
+              if(lenght !== null) {
+                return res.status(200).json({
+                    massege: 'Thanh cong',
+                    data,
+                    lenght
+                 })  
+              }
+              else {
+                return res.status(200).json({
+                    massege: 'That bai',
+                 })  
+              }
+            })
+           }
+           else {
+            return res.status(200).json({
+                massege: 'That bai',
+             })  
+           }
+        })
+}
 exports.showLenghtProduct = async (req, res) => {
     Product.getLenghtProduct(function (data) {
         if (data !== null) {

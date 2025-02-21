@@ -3,16 +3,15 @@ const cors = require('cors');
 require('dotenv').config()
 const { checkToken } = require('../Middleware/JWTAction')
 const { checkTokenAdmin } = require('../Middleware/JWTAdmin')
-const { getBestSeller } = require( '../Middleware/CacheData');
-
 const  uploadFile  = require('../Middleware/Upload')
+const { getBestSeller } = require( '../Middleware/CacheData');
 const  { checkAuth }  = require('../Middleware/checkAuth')
 const  { PayMethod }  = require('../Middleware/PayMethod')
 const  { checkPhone, checkInfoBill }  = require('../Middleware/checkPhone')
 const  { Respon }  = require('../Middleware/Respon')
 const  { checkTokenOrder }  = require('../Middleware/JWTOrder')
 const  { CheckPayOrder, OrderStatus }  = require('../Middleware/CheckPayOrder')
-
+// const  { checkPayMethod }  = require('../Middleware/checkPayMethod')
 const  { checkAutoRep, OnAutoRep, AutoRepComment }  = require('../Middleware/checkAutoRep')
 const  { checkOpen, OnOpen, checkStatus }  = require('../Middleware/checkOpen')
 const ProductController = require('../Controllers/ProductController')
@@ -29,6 +28,7 @@ let router = express.Router()
 const apiRoute = (app) => {
   // 
   router.get('/showproduct',ProductController.showProduct)
+  router.get('/search',ProductController.showProductFind)
   router.get('/showcategori',ProductController.showCategori)
   router.get('/showtype',ProductController.showType)
   router.get('/showmenu',ProductController.showMenu)

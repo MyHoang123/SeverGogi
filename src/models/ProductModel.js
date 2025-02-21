@@ -9,6 +9,26 @@ const getAllProduct = function (newPage, product) {
         }
     })
 }
+const getFindProduct = function (value,page,product) {
+    db.query(`SELECT p.Id, p.Name, p.Price, p.Img, ct.Name AS NameCate, CASE WHEN p.Sales >= 999 THEN '999+' ELSE p.Sales END AS Sales, p.Visible, 'visible' AS Status, ROUND(AVG(c.Star), 1) AS Star FROM products p LEFT JOIN comment c ON p.Id = c.IdProduct INNER JOIN categoris ct ON ct.Id = p.IdCategoris WHERE p.Name LIKE '%${value}%' GROUP BY p.Id LIMIT  8 OFFSET ${page}`,function(err, data) {
+        if(err) {
+            product (null)
+        }
+        else {
+            product (data)
+        }
+    })
+}
+const getFindProductLength = function (value,product) {
+    db.query(`SELECT COUNT(p.Id) AS Lenght FROM products p WHERE p.Name LIKE '%${value}%'`,function(err, data) {
+        if(err) {
+            product (null)
+        }
+        else {
+            product (data)
+        }
+    })
+}
 const getLenghtProduct = function (product) {
     db.query("SELECT COUNT(Id) AS Lenght FROM products", function (err, data) {
         if (err) {
@@ -444,4 +464,6 @@ module.exports = {
     getCategoriType,
     getLenghtProductCate,
     getLenghtProductCateType,
+    getFindProduct,
+    getFindProductLength,
 }
